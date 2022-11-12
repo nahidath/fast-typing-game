@@ -15,9 +15,9 @@ function App() {
 
   return (
       <>
-        {/*<div className="logo">*/}
-        {/*  <img src="/logo.png" alt="Logo" />*/}
-        {/*</div>*/}
+        <div className="logo">
+          {/*<img src="/logo.png" alt="Logo" />*/}
+        </div>
         <div className="App">
           <Routes>
             <Route path='/' element={<Home/>} />

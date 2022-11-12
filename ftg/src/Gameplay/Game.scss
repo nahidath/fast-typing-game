@@ -1,0 +1,37 @@
+#game{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+.hide{
+  display: none;
+}
+
+.topStats{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5em;
+
+  span{
+    font-size : 25px;
+  }
+}
+
+.inputAnswer{
+  position: relative;
+  top: 70px;
+
+  input{
+    width: 80%;
+    padding : 5px;
+    font-size: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border-radius : 20px;
+  }
+}
