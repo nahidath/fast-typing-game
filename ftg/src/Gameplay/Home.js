@@ -15,8 +15,9 @@ export default function Home() {
                 Fast Word<br/>How fast are you ?
             </div>
             <div className="iconBackground">
-                <BsFillPlayCircleFill color={"#eac300"} size={120} onClick={goToStart} className="playGame"/>
+                {/*<BsFillPlayCircleFill color={"#eac300"} size={120} onClick={goToStart} className="playGame"/>*/}
             </div>
+            <BsFillPlayCircleFill color={"#2B0853"} size={120} onClick={goToStart}className="playGame"/>
             <h4 className="start-msg">Let's start !!</h4>
         </div>
     )

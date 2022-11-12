@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
+
 .playGame{
+  margin-top:40px;
   cursor: pointer;
   clip-path: circle(50%);
   transition: transform .3s ease-in; /* Animation */
@@ -9,28 +12,27 @@
 }
 
 .iconBackground{
+  position: absolute;
   background-color: #fff;
   border-radius: 100%;
-  margin-left: 45%;
-  margin-top: 30px;
-  width: 10%;
-  clip-path: circle(50%);
+  left: 47%;
+  top: 35%;
+  width:90px;
+  height: 90px;
 
-  &:hover{
-    background-color: #fff;
-    border-radius: 100%;
-    width: 10%;
-    height: 5%;
-  }
+
 }
 
 
 .start-msg{
   font-size : 25px;
   opacity : 0;
+  font-family: 'Bubblegum Sans', cursive;
+  letter-spacing: 1px;
+
 }
 
-.iconBackground:hover + .start-msg{
+.playGame:hover + .start-msg{
   opacity : 1;
   transition: 0.3s ease-in;
 }
@@ -39,4 +41,9 @@
   position : absolute;
   top: 40%;
   width : 100%;
+}
+
+.gameTitle{
+  font-size : 1.5em;
+  font-family: 'Bubblegum Sans', cursive;
 }
