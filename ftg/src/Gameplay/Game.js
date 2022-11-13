@@ -5,28 +5,35 @@ export default function Game(){
 
     const [answer, setAnswer] = useState("");
     const [cd, setCD] = useState(3);
+    const [finish, setFinish] = useState(false);
 
     useEffect(() => {
-        countdown();
+        if(cd >1){
+            setTimeout(()=>setCD(cd-1),1000);
+        }
+
+    },[cd])
+
+    useEffect( () => {
+        setTimeout(()=>{countdown();},3000);
+        // setTimeout(() =>{clearCD();}, 3000);
     },[])
 
     const countdown = () => {
-        // setTimeout(()=>setCD(3-1),1000);
-        setTimeout(function (){
-            setCD(cd-1);
-            if (cd == 0){
-                document.getElementById("countdownStart").innerHTML = "GO !!";
-                document.getElementById("countdownStart").className = 'hide';
-                document.getElementById("game").className = '';
 
-            }
-            document.getElementById("countdownStart").innerHTML = cd;
-        },1000)
+        document.getElementById("countdownStart").innerHTML = "GO !!";
+        setTimeout(() => {clearCD();}, 1000);
+
+
+    }
+    const clearCD = () => {
+        document.getElementById("countdownStart").className = 'hide';
+        document.getElementById("game").className = '';
     }
 
     return(
         <>
-        <div id="countdownStart"></div>
+        <div id="countdownStart">{cd}</div>
         <div id="game" className="hide">
             <div className="topStats">
                 <span>Timer :</span>

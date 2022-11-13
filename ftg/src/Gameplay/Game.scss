@@ -6,6 +6,34 @@
 
 }
 
+#countdownStart{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size : 7em;
+  color: white;
+  animation: zoomzoom-in 4s ease-in;
+
+  //span{
+  //
+  //  //transform: scale(1.2);
+  //  //transition: transform .3s ease-in; /* Animation */
+  //}
+}
+
+@keyframes zoomzoom-in {
+  0% {
+    transform: scale(1, 1);
+  }
+  50%{
+    transform: scale(1.5, 1.5);
+  }
+  100%{
+    transform: scale(2, 2);
+  }
+}
+
 .hide{
   display: none;
 }
