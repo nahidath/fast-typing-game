@@ -13,25 +13,17 @@
   transform: translate(-50%, -50%);
   font-size : 7em;
   color: white;
+  text-align: center;
   animation: zoomzoom-in 4s ease-in;
-
-  //span{
-  //
-  //  //transform: scale(1.2);
-  //  //transition: transform .3s ease-in; /* Animation */
-  //}
 }
 
 @keyframes zoomzoom-in {
-  0% {
+  from {
     transform: scale(1, 1);
   }
-  50%{
-    transform: scale(1.5, 1.5);
-  }
-  100%{
-    transform: scale(2, 2);
-  }
+ to {
+   transform: scale(1.2, 1.2);
+ }
 }
 
 .hide{
@@ -62,4 +54,11 @@
     text-align: center;
     border-radius : 20px;
   }
+}
+
+#wordDisplay{
+  position: relative;
+  top: 30px;
+  text-align: left;
+  font-size: 1.5em;
 }
