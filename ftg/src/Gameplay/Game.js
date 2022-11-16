@@ -13,6 +13,7 @@ export default function Game(){
     const [language, setLanguage] = useState("");
     const pathArray = window.location.pathname.split("/");
     setLanguage(pathArray[2]);
+    const [file, setFile] = useState("");
     // const {readFileSync, promises: fsPromises} = require('fs');
     // const fs = require('fs').promises;
 
@@ -24,14 +25,16 @@ export default function Game(){
     },[cd])
 
     useEffect( () => {
+        txtToArray();
         setTimeout(()=>{countdown();},3000);
         // setTimeout(() =>{clearCD();}, 3000);
     },[])
 
     useEffect(() => {
         if(playing && timer > 0){
+            getRandomWord();
             setTimeout( ()=> setTimer(timer-1), 1000);
-            // updtScore();
+            // submitAnswer();
         }
 
     },[playing, timer])
@@ -49,39 +52,55 @@ export default function Game(){
         document.getElementById("input").focus();
     }
 
-    const updtScore = () => {
-        if(answer == word){
+    const submitAnswer = () => {
+        let styleWord = document.getElementById("wordDisplay");
+        if(answer === word){
+            styleWord.style.backgroundColor = "#04BA16";
             setScore(score + 1);
+        }else{
+            styleWord.style.backgroundColor = "#C40F0A";
         }
 
     }
 
-    // const txtToArray = async () => {
-    //     let file;
-    //     try {
-    //         if(language == "fr"){
-    //             file = await fs.readFile("../Languages/fr.txt");
-    //         }else if(language == "es"){
-    //             file = await fs.readFile("../Languages/es.txt");
-    //         }else if(language == "de"){
-    //             file = await fs.readFile("../Languages/de.txt");
-    //         }else if(language == "en") {
-    //             file = await fs.readFile("../Languages/en.txt");
-    //         }
-    //
-    //         const arr = file.split(/\r?\n/);
-    //         return arr;
-    //     }catch (e) {
-    //         console.log(e);
-    //     }
-    // }
-    //
-    // const getRandomWord = () => {
-    //     let arrayWords = txtToArray();
-    //
-    //     const rndWord = Math.floor(Math.random() * arrayWords.length);
-    //     setWord(arrayWords[rndWord]);
-    // }
+    const txtToArray = () => {
+        if(language == "fr"){
+            fetch('../Languages/fr.txt')
+                .then((r) => r.text())
+                .then(text  => {
+                    setFile(text)
+                })
+        }else if(language == "es"){
+            fetch('../Languages/es.txt')
+                .then((r) => r.text())
+                .then(text  => {
+                    setFile(text);
+                })
+        }else if(language == "de"){
+            fetch('../Languages/de.txt')
+                .then((r) => r.text())
+                .then(text  => {
+                    setFile(text);
+                })
+        }else if(language == "en") {
+            fetch('../Languages/en.txt')
+                .then((r) => r.text())
+                .then(text  => {
+                    setFile(text);
+                })
+        }
+
+        const arr = file.split(/\r?\n/);
+        return arr;
+
+    }
+
+    const getRandomWord = () => {
+        let arrayWords = txtToArray();
+
+        const rndWord = Math.floor(Math.random() * arrayWords.length);
+        setWord(arrayWords[rndWord]);
+    }
 
     return(
         <>
@@ -92,8 +111,8 @@ export default function Game(){
                 <span>Score : {score}</span>
             </div>
 
-            <div id="wordDisplay"></div>
-            <form className="inputAnswer" onSubmit={updtScore}>
+            <div id="wordDisplay">{word}</div>
+            <form className="inputAnswer" onSubmit={submitAnswer}>
                 <input type="text" id="input"  onChange={(e)=> setAnswer(e)} />
             </form>
 
