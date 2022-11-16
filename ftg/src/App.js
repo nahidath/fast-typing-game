@@ -4,6 +4,7 @@ import {VscDebugRestart} from "react-icons/vsc";
 import {Button} from "react-bootstrap";
 import Home from "./Gameplay/Home";
 import Game from "./Gameplay/Game";
+import Choose from "./Gameplay/Choose";
 
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
         <div className="App">
           <Routes>
             <Route path='/' element={<Home/>} />
-            <Route path="/start" element={<Game/>} />
+            <Route path='/lang' element={<Choose/>} />
+            <Route path="/start/:lang" element={<Game/>} />
             {/*<Route path="/end" element={<EndGame/>} />*/}
           </Routes>
         </div>
