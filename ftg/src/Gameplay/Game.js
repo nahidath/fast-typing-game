@@ -14,6 +14,7 @@ export default function Game(){
     const pathArray = window.location.pathname.split("/");
     setLanguage(pathArray[2]);
     const [file, setFile] = useState("");
+    const [inputEmpty, setInputEmpty] = useState(true);
     // const {readFileSync, promises: fsPromises} = require('fs');
     // const fs = require('fs').promises;
 
@@ -31,13 +32,13 @@ export default function Game(){
     },[])
 
     useEffect(() => {
-        if(playing && timer > 0){
+        if(playing && timer > 0 && inputEmpty){
             getRandomWord();
             setTimeout( ()=> setTimer(timer-1), 1000);
-            // submitAnswer();
+            submitAnswer();
         }
 
-    },[playing, timer])
+    },[playing, timer, inputEmpty])
 
     const countdown = () => {
         document.getElementById("countdownStart").innerHTML = "GO !!";
@@ -53,6 +54,7 @@ export default function Game(){
     }
 
     const submitAnswer = () => {
+        setInputEmpty(false);
         let styleWord = document.getElementById("wordDisplay");
         if(answer === word){
             styleWord.style.backgroundColor = "#04BA16";
@@ -60,6 +62,9 @@ export default function Game(){
         }else{
             styleWord.style.backgroundColor = "#C40F0A";
         }
+
+        document.getElementById("input").value='';
+        setInputEmpty(true);
 
     }
 
