@@ -10,21 +10,24 @@ export default function Choose(){
     const navigate = useNavigate();
 
     const handleLangClick = (lang) => {
-        navigate("/star/"+ lang, {replace: true});
+        console.log(lang);
+        navigate("/start/"+ lang, {replace: true});
     }
 
-    const [selected, setSelected] = useState("");
+    const [selected, setSelected] = useState(null);
+    console.log(selected);
 
     return(
-        <form className="language-select">
-            <label for="language">Choose a language :</label>
+        <div className="language-select">
+            <label htmlFor="language">Choose a language :</label>
             <select name="languages" id="languages" onChange={(e) => setSelected(e.target.value)}>
-                <option value="fr">French</option>
+                <option value="none" selected disabled hidden>Select an Option</option>
+                <option  value="fr">French</option>
                 <option value="en">English</option>
                 <option value="de">Deutsch</option>
                 <option value="es">Spanish</option>
             </select>
-            <Button className="btn-choose" onSubmit={() => handleLangClick(selected)}><FaCheck id="check-icon"/></Button>
-        </form>
+            <Button className="btn-choose" onClick={() => handleLangClick(selected)}><FaCheck id="check-icon"/></Button>
+        </div>
     )
 }

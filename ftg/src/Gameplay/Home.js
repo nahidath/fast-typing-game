@@ -6,7 +6,7 @@ export default function Home() {
     const navigate = useNavigate();
 
     const goToStart = () => {
-        navigate("/start", {replace: true});
+        navigate("/lang", {replace: true});
     }
 
     return(
