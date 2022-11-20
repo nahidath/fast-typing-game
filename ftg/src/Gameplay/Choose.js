@@ -10,12 +10,10 @@ export default function Choose(){
     const navigate = useNavigate();
 
     const handleLangClick = (lang) => {
-        console.log(lang);
-        navigate("/start/"+ lang, {replace: true});
+        navigate("/start/", {state: {lang: lang}, replace: true});
     }
 
     const [selected, setSelected] = useState(null);
-    console.log(selected);
 
     return(
         <div className="language-select">
