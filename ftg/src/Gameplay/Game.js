@@ -16,8 +16,12 @@ export default function Game(){
     const [isRunning, setIsRunning] = useState(false);
     const [isFinished, setIsFinished] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
-
+    const [isLoaded, setIsLoaded] = useState(false);
     useEffect(() => {
+        // if(!isLoaded){
+        //     txtToArray();
+        //     setIsLoaded(true);
+        // }
         if (!isRunning){
             let i = cd-1;
             const interval = setInterval(()=>{
@@ -33,7 +37,7 @@ export default function Game(){
         }
 
 
-    },[isRunning]);
+    },[isRunning, isLoaded]);
 
     const startGame = () => {
         document.getElementById("countdownStart").innerHTML = "GO !!";
@@ -47,13 +51,15 @@ export default function Game(){
         document.getElementById("input").focus();
         let i = timer-1;
         const interval = setInterval(()=>{
-            if(i > 0) {
+            if(i >= 0) {
                 setTimer(i);
                 i--;
+                // getRandomWord();
             }else{
                 clearInterval(interval);
             }
         },1000);
+
 
     }
 
@@ -73,26 +79,25 @@ export default function Game(){
     }
 
     const txtToArray = () => {
-        if(location.state.lang == "fr") {
-            console.log("fr");
+        if(location.state.lang === "fr") {
             fetch('../Languages/fr.txt')
                 .then((r) => r.text())
                 .then(text  => {
                     setFile(text);
                 })
-        }else if(location.state.lang == "es"){
+        }else if(location.state.lang === "es"){
             fetch('../Languages/es.txt')
                 .then((r) => r.text())
                 .then(text  => {
                     setFile(text);
                 })
-        }else if(location.state.lang == "de"){
+        }else if(location.state.lang === "de"){
             fetch('../Languages/de.txt')
                 .then((r) => r.text())
                 .then(text  => {
                     setFile(text);
                 })
-        }else if(location.state.lang == "en") {
+        }else if(location.state.lang === "en") {
             fetch('../Languages/en.txt')
                 .then((r) => r.text())
                 .then(text  => {
@@ -101,7 +106,7 @@ export default function Game(){
         }
 
         setArrayWords(file.split(/\r?\n/));
-
+        console.log(arrayWords);
     }
 
     const getRandomWord = () => {
