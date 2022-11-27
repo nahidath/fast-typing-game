@@ -18,10 +18,24 @@ export default function Game(){
     const [isCorrect, setIsCorrect] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
     useEffect(() => {
+
         if(!isLoaded){
+            console.log("loaded");
             // txtToArray().then(r => console.log(r) );
-            txtToArray();
+            // txtToArray().then(file => console.log(file) );
+            const func = async () => {
+                let response;
+                let data;
+                if (location.state.lang === "fr") {
+                    response = await fetch("./Lang/fr.txt");
+                    data = await response.text();
+                    setFile(data);
+                    console.log(response);
+
+                }
+            }
             setIsLoaded(true);
+            func().then(r => console.log(r));
         }
         if (!isRunning){
             let i = cd-1;
@@ -81,16 +95,19 @@ export default function Game(){
 
     const txtToArray = async () => {
         let response;
+        let data;
         if (location.state.lang === "fr") {
-            response = await fetch("../public/Languages/fr.txt");
-            // setFile(response.text());
+            response = await fetch("./Lang/fr.txt");
+            data = await response.text();
+            setFile(data);
             console.log(response);
-            // fetch('./Languages/fr.txt')
+            // await fetch('./Gameplay/fr.txt')
             //     .then((r) => r.text())
             //     .then(text  => {
             //         console.log(text);
             //         setFile(text);
             //     })
+            //     .catch((e) => console.log(e));
         }
         // else if (location.state.lang === "es") {
         //     fetch('../Languages/es.txt')
