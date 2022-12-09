@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import "./Game.scss";
 import {useLocation} from "react-router-dom";
+import axios from "axios";
 
 export default function Game(){
 
@@ -10,7 +11,7 @@ export default function Game(){
     const [score, setScore] = useState(0);
     const [word, setWord] = useState("");
     const location = useLocation();
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState("");
     const [inputEmpty, setInputEmpty] = useState(true);
     const [arrayWords, setArrayWords] = useState([]);
     const [isRunning, setIsRunning] = useState(false);
@@ -19,23 +20,13 @@ export default function Game(){
     const [isLoaded, setIsLoaded] = useState(false);
     useEffect(() => {
 
+
         if(!isLoaded){
             console.log("loaded");
-            // txtToArray().then(r => console.log(r) );
-            // txtToArray().then(file => console.log(file) );
-            const func = async () => {
-                let response;
-                let data;
-                if (location.state.lang === "fr") {
-                    response = await fetch("./Lang/fr.txt");
-                    data = await response.text();
-                    setFile(data);
-                    console.log(response);
-
-                }
-            }
+            getDataAxios();
+            // txtToArray().then(r => setArrayWords(r) );
+            // getDataAxios();
             setIsLoaded(true);
-            func().then(r => console.log(r));
         }
         if (!isRunning){
             let i = cd-1;
@@ -69,7 +60,8 @@ export default function Game(){
             if(i >= 0) {
                 setTimer(i);
                 i--;
-                // getRandomWord();
+                getRandomWord();
+
             }else{
                 clearInterval(interval);
             }
@@ -93,49 +85,51 @@ export default function Game(){
 
     }
 
+    const getDataAxios = () => {
+        axios.get('http://localhost:3000/Lang/fr.txt')
+            .then(response => {
+                const data = response.data;
+                const dataSplit = data.split(/\r?\n/, 10);
+                console.log(dataSplit);
+                setArrayWords(dataSplit);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
     const txtToArray = async () => {
         let response;
         let data;
         if (location.state.lang === "fr") {
-            response = await fetch("./Lang/fr.txt");
+            response = await fetch("http://localhost:3000/Lang/fr.txt");
             data = await response.text();
-            setFile(data);
-            console.log(response);
-            // await fetch('./Gameplay/fr.txt')
-            //     .then((r) => r.text())
-            //     .then(text  => {
-            //         console.log(text);
-            //         setFile(text);
-            //     })
-            //     .catch((e) => console.log(e));
         }
         // else if (location.state.lang === "es") {
-        //     fetch('../Languages/es.txt')
-        //         .then((r) => r.text())
-        //         .then(text => {
-        //             setFile(text);
-        //         })
+        //     response = await fetch('http://localhost:3000/Lang/es.txt');
+        //     data = await response.text();
+        //     setFile(data);
         // } else if (location.state.lang === "de") {
-        //     fetch('../Languages/de.txt')
-        //         .then((r) => r.text())
-        //         .then(text => {
-        //             setFile(text);
-        //         })
+        //     response = await fetch('http://localhost:3000/Lang/de.txt');
+        //     data = await response.text();
+        //     setFile(data);
         // } else if (location.state.lang === "en") {
-        //     fetch('../Languages/en.txt')
-        //         .then((r) => r.text())
-        //         .then(text => {
-        //             setFile(text);
-        //         })
+        //     response = await fetch('http://localhost:3000/Lang/en.txt');
+        //     data = await response.text();
+        //     setFile(data);
         // }
 
-        // setArrayWords(file.split(/\r?\n/));
-        // console.log(arrayWords);
+        const dataSplit = data.split(/\r?\n/, 10);
+        setArrayWords(arrayWords => [...arrayWords, dataSplit ]);
+        return dataSplit;
     }
 
     const getRandomWord = () => {
+        console.log("getRandomWord");
+        console.log(arrayWords);
         const rndWord = Math.floor(Math.random() * arrayWords.length);
         setWord(arrayWords[rndWord]);
+
     }
 
     return(
