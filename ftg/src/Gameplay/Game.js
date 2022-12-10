@@ -18,6 +18,7 @@ export default function Game(){
     const [isFinished, setIsFinished] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [started, setStarted] = useState(false);
     useEffect(() => {
 
 
@@ -41,9 +42,14 @@ export default function Game(){
             },1000);
             setIsRunning(true);
         }
+        if(started && timer > 0){
+            getRandomWord();
+            nextWord();
+        }
 
 
-    },[isRunning, isLoaded]);
+
+    },[isRunning, isLoaded, started, timer]);
 
     const startGame = () => {
         document.getElementById("countdownStart").innerHTML = "GO !!";
@@ -60,10 +66,11 @@ export default function Game(){
             if(i >= 0) {
                 setTimer(i);
                 i--;
-                getRandomWord();
+                setStarted(true);
 
             }else{
                 clearInterval(interval);
+                setStarted(false);
             }
         },1000);
 
@@ -90,7 +97,6 @@ export default function Game(){
             .then(response => {
                 const data = response.data;
                 const dataSplit = data.split(/\r?\n/, 10);
-                console.log(dataSplit);
                 setArrayWords(dataSplit);
             })
             .catch(error => {
@@ -125,11 +131,16 @@ export default function Game(){
     }
 
     const getRandomWord = () => {
-        console.log("getRandomWord");
-        console.log(arrayWords);
         const rndWord = Math.floor(Math.random() * arrayWords.length);
-        setWord(arrayWords[rndWord]);
+        // setWord(arrayWords[rndWord]);
+        // console.log(arrayWords[rndWord]);
+        return arrayWords[rndWord];
+    }
 
+    const nextWord = () => {
+        const word = getRandomWord();
+        document.getElementById("wordDisplay").textContent = word;
+        setWord(word);
     }
 
     return(
