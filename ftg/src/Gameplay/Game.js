@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import "./Game.scss";
 import {useLocation} from "react-router-dom";
 import axios from "axios";
+import {GiCrossMark} from "react-icons/gi";
 
 export default function Game(){
 
@@ -9,24 +10,17 @@ export default function Game(){
     const [cd, setCD] = useState(3);
     const [timer, setTimer] = useState(30);
     const [score, setScore] = useState(0);
-    const [word, setWord] = useState("");
     const location = useLocation();
-    const [file, setFile] = useState("");
-    const [inputEmpty, setInputEmpty] = useState(true);
     const [arrayWords, setArrayWords] = useState([]);
     const [isRunning, setIsRunning] = useState(false);
     const [isFinished, setIsFinished] = useState(false);
-    const [isCorrect, setIsCorrect] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
     const [started, setStarted] = useState(false);
     useEffect(() => {
 
 
         if(!isLoaded){
-            console.log("loaded");
             getDataAxios();
-            // txtToArray().then(r => setArrayWords(r) );
-            // getDataAxios();
             setIsLoaded(true);
         }
         if (!isRunning){
@@ -71,76 +65,114 @@ export default function Game(){
             }else{
                 clearInterval(interval);
                 setStarted(false);
+                setIsFinished(true);
             }
         },1000);
 
-
+        // if(isFinished){
+        //     document.getElementById("game").className = 'hide';
+        //     // document.getElementById("end").className = '';
+        // }
     }
 
-    const submitAnswer = () => {
-        setInputEmpty(false);
-        let styleWord = document.getElementById("wordDisplay");
-        if(answer === word){
-            styleWord.style.backgroundColor = "#04BA16";
-            setScore(score + 1);
+    const submitAnswer = (event) => {
+        event.preventDefault();
+        let key;
+        let isCorrect = false;
+        if(document.getElementById("input").value === ''){
+            return;
         }else{
-            styleWord.style.backgroundColor = "#C40F0A";
-        }
+            let allWords = document.getElementById("wordDisplay").querySelectorAll("span");
+            for(let i = 0; i < allWords.length; i++){
+                if(allWords[i].innerHTML === answer){
+                    isCorrect = true;
+                    key = i;
+                    break;
+                }else{
+                    key = i;
+                    isCorrect = false;
+                    document.getElementById("crossMark").classList.remove("hidden");
+                    setTimeout(() => {
+                        document.getElementById("input").value='';
+                        document.getElementById("crossMark").classList.add("hidden");
+                    }, 400);
 
-        document.getElementById("input").value='';
-        setInputEmpty(true);
+
+                }
+            }
+            if(isCorrect){
+                console.log("key",key);
+                allWords[key].style.backgroundColor = "#04BA16";
+                setScore(score+1);
+            }
+            document.getElementById("input").value='';
+        }
 
     }
 
     const getDataAxios = () => {
-        axios.get('http://localhost:3000/Lang/fr.txt')
-            .then(response => {
-                const data = response.data;
-                const dataSplit = data.split(/\r?\n/, 10);
-                setArrayWords(dataSplit);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
-
-    const txtToArray = async () => {
-        let response;
-        let data;
-        if (location.state.lang === "fr") {
-            response = await fetch("http://localhost:3000/Lang/fr.txt");
-            data = await response.text();
+        if (location.state.lang === "fr"){
+            axios.get('http://localhost:3000/Lang/fr.txt')
+                .then(response => {
+                    const data = response.data;
+                    const dataSplit = data.split(/\r?\n/, 10);
+                    const dataShuffle = dataSplit.sort(() => Math.random() - 0.5);
+                    setArrayWords(dataShuffle);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        } else if (location.state.lang === "en"){
+            axios.get('http://localhost:3000/Lang/en.txt')
+                .then(response => {
+                    const data = response.data;
+                    const dataSplit = data.split(/\r?\n/, 10);
+                    const dataShuffle = dataSplit.sort(() => Math.random() - 0.5);
+                    setArrayWords(dataShuffle);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        } else if (location.state.lang === "es"){
+            axios.get('http://localhost:3000/Lang/es.txt')
+                .then(response => {
+                    const data = response.data;
+                    const dataSplit = data.split(/\r?\n/, 10);
+                    const dataShuffle = dataSplit.sort(() => Math.random() - 0.5);
+                    setArrayWords(dataShuffle);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        } else if (location.state.lang === "de"){
+            axios.get('http://localhost:3000/Lang/de.txt')
+                .then(response => {
+                    const data = response.data;
+                    const dataSplit = data.split(/\r?\n/, 10);
+                    const dataShuffle = dataSplit.sort(() => Math.random() - 0.5);
+                    setArrayWords(dataShuffle);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
-        // else if (location.state.lang === "es") {
-        //     response = await fetch('http://localhost:3000/Lang/es.txt');
-        //     data = await response.text();
-        //     setFile(data);
-        // } else if (location.state.lang === "de") {
-        //     response = await fetch('http://localhost:3000/Lang/de.txt');
-        //     data = await response.text();
-        //     setFile(data);
-        // } else if (location.state.lang === "en") {
-        //     response = await fetch('http://localhost:3000/Lang/en.txt');
-        //     data = await response.text();
-        //     setFile(data);
-        // }
 
-        const dataSplit = data.split(/\r?\n/, 10);
-        setArrayWords(arrayWords => [...arrayWords, dataSplit ]);
-        return dataSplit;
     }
+
 
     const getRandomWord = () => {
         const rndWord = Math.floor(Math.random() * arrayWords.length);
-        // setWord(arrayWords[rndWord]);
-        // console.log(arrayWords[rndWord]);
         return arrayWords[rndWord];
     }
 
     const nextWord = () => {
         const word = getRandomWord();
-        document.getElementById("wordDisplay").textContent = word;
-        setWord(word);
+        const wordDiv = document.createElement('span');
+        wordDiv.style.padding = "10px";
+        wordDiv.style.display = "inline-block";
+        wordDiv.innerText = word;
+        document.getElementById("wordDisplay").appendChild(wordDiv);
+
     }
 
     return(
@@ -152,9 +184,9 @@ export default function Game(){
                 <span>Score : {score}</span>
             </div>
 
-            <div id="wordDisplay">{word}</div>
+            <div id="wordDisplay"></div>
             <form className="inputAnswer" onSubmit={submitAnswer}>
-                <input type="text" id="input"  onChange={(e)=> setAnswer(e)} />
+                <input type="text" id="input"  onChange={(e)=> setAnswer(e.target.value)} /><GiCrossMark id="crossMark" className="hidden" size={30}/>
             </form>
 
         </div>
