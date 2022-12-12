@@ -1,8 +1,10 @@
 import {useEffect, useState} from "react";
 import "./Game.scss";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {GiCrossMark} from "react-icons/gi";
+import {IoHome} from "react-icons/io5";
+
 
 export default function Game(){
 
@@ -16,6 +18,8 @@ export default function Game(){
     const [isFinished, setIsFinished] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
     const [started, setStarted] = useState(false);
+    const navigate = useNavigate();
+
     useEffect(() => {
 
 
@@ -69,10 +73,9 @@ export default function Game(){
             }
         },1000);
 
-        // if(isFinished){
-        //     document.getElementById("game").className = 'hide';
-        //     // document.getElementById("end").className = '';
-        // }
+        if(isFinished) {
+            document.getElementById("endGame").classList.remove("hide");
+        }
     }
 
     const submitAnswer = (event) => {
@@ -175,21 +178,34 @@ export default function Game(){
 
     }
 
+    const restartGame = () => {
+        navigate("/", {replace: true});
+    }
+
     return(
         <>
-        <div id="countdownStart">{cd}</div>
-        <div id="game" className="hide">
-            <div className="topStats">
-                <span>Timer : {timer}</span>
-                <span>Score : {score}</span>
+        {/*<div id="countdownStart">{cd}</div>*/}
+        {/*<div id="game" className="hide">*/}
+        {/*    <div className="topStats">*/}
+        {/*        <span>Timer : {timer}</span>*/}
+        {/*        <span>Score : {score}</span>*/}
+        {/*    </div>*/}
+
+        {/*    <div id="wordDisplay"></div>*/}
+        {/*    <form className="inputAnswer" onSubmit={submitAnswer}>*/}
+        {/*        <input type="text" id="input"  onChange={(e)=> setAnswer(e.target.value)} /><GiCrossMark id="crossMark" className="hidden" size={30}/>*/}
+        {/*    </form>*/}
+
+        {/*</div>*/}
+            <div id="endBckgrnd" >
+                <div className="endGame" id="endGame" >
+                    <h4>GAME OVER</h4>
+                    <img src="http://localhost:3000/alarm-clock.png" alt="timeBroken"/>
+                    <h5>Your score is : {score}</h5>
+                    <button onClick={restartGame}><IoHome size={30}/></button>
+                </div>
             </div>
 
-            <div id="wordDisplay"></div>
-            <form className="inputAnswer" onSubmit={submitAnswer}>
-                <input type="text" id="input"  onChange={(e)=> setAnswer(e.target.value)} /><GiCrossMark id="crossMark" className="hidden" size={30}/>
-            </form>
-
-        </div>
         </>
     );
 }
