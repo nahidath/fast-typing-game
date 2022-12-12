@@ -27,7 +27,7 @@ function App() {
             {/*<Route path="/end" element={<EndGame/>} />*/}
           </Routes>
         </div>
-        <div className="restart">
+        <div id="restart" className="restart">
           <VscDebugRestart onClick={goToHomePage}/> Restart
         </div>
       </>

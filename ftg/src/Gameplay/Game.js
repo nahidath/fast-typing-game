@@ -74,6 +74,7 @@ export default function Game(){
         },1000);
 
         if(isFinished) {
+            // document.getElementById("restart").classList.add("hide");
             document.getElementById("endGame").classList.remove("hide");
         }
     }
