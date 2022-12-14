@@ -6,17 +6,20 @@ import Home from "./Gameplay/Home";
 import Game from "./Gameplay/Game";
 import Choose from "./Gameplay/Choose";
 import {HiSpeakerWave, HiSpeakerXMark} from "react-icons/hi2";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import Sound from 'react-sound';
 
 
 function App() {
   const navigate = useNavigate();
   const [isMuted, setIsMuted] = useState(false);
-  // let audio = new Audio("http://localhost:3000/Beat_One.mp3");
-  // audio.play().then(r => console.log(r)).catch(e => console.log(e));
-  // audio.loop = true;
-  let audio = document.getElementById("audio");
-  audio.play();
+  let audioURL = process.env.PUBLIC_URL + '/Beat_One.mp3';
+  localStorage.setItem("muted", JSON.stringify(isMuted));
+
+
+  useEffect(() => {
+      setIsMuted(JSON.parse(localStorage.getItem("muted")));
+  },[]);
 
   const goToHomePage = () => {
     navigate("/", {replace: true});
@@ -24,21 +27,27 @@ function App() {
   const muteBtn = () => {
       console.log(isMuted);
       if (!isMuted) {
-          audio.pause();
           setIsMuted(true);
       }else{
-          audio.play();
           setIsMuted(false);
       }
 
   }
 
+
   return (
       <>
         <div id="sound">
             {isMuted ? <HiSpeakerXMark className="speaker" color={"#ea0000"} size={35} onClick={muteBtn}/> : <HiSpeakerWave className="speaker" color={"#ffffff"} size={35} onClick={muteBtn}/>}
+            <Sound
+                url={audioURL}
+                playStatus={!isMuted ? Sound.status.PLAYING : Sound.status.STOPPED}
+                playFromPosition={300}
+                autoLoad={true}
+                loop={true}
+            />
             {/*<HiSpeakerWave size={35} color={"#ffffff"} className="speaker"/>*/}
-            <audio id="audio" src="http://localhost:3000/Beat_One.mp3" preload="auto"></audio>
+            {/*<audio id="audio" src="http://localhost:3000/Beat_One.mp3" controls></audio>*/}
         </div>
         <div className="logo">
           {/*<img src="/logo.png" alt="Logo" />*/}

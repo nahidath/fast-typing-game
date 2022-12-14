@@ -34,10 +34,17 @@
 }
 
 .speaker{
+    position: fixed;
+    top: 15%;
+    right: 22%;
+    cursor: pointer;
+    z-index: 1;
+}
+
+#audio{
     position: absolute;
     top: 15%;
     right: 20%;
     cursor: pointer;
     z-index: 1;
 }
-

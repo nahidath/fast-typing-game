@@ -15,7 +15,7 @@ export default function Game(){
     const location = useLocation();
     const [arrayWords, setArrayWords] = useState([]);
     const [isRunning, setIsRunning] = useState(false);
-    const [isFinished, setIsFinished] = useState(false);
+    // const [isFinished, setIsFinished] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
     const [started, setStarted] = useState(false);
     const navigate = useNavigate();
@@ -69,14 +69,12 @@ export default function Game(){
             }else{
                 clearInterval(interval);
                 setStarted(false);
-                setIsFinished(true);
+                // document.getElementById("restart").classList.add("hide");
+                document.getElementById("endBckgrnd").classList.remove("hide");
             }
         },1000);
 
-        if(isFinished) {
-            // document.getElementById("restart").classList.add("hide");
-            document.getElementById("endBckgrnd").classList.remove("hide");
-        }
+
     }
 
     const submitAnswer = (event) => {
@@ -116,7 +114,7 @@ export default function Game(){
 
     const getDataAxios = () => {
         if (location.state.lang === "fr"){
-            axios.get('http://localhost:3000/Lang/fr.txt')
+            axios.get(process.env.PUBLIC_URL + '/Lang/fr.txt')
                 .then(response => {
                     const data = response.data;
                     const dataSplit = data.split(/\r?\n/, 10);
@@ -127,7 +125,7 @@ export default function Game(){
                     console.log(error);
                 });
         } else if (location.state.lang === "en"){
-            axios.get('http://localhost:3000/Lang/en.txt')
+            axios.get(process.env.PUBLIC_URL + '/Lang/en.txt')
                 .then(response => {
                     const data = response.data;
                     const dataSplit = data.split(/\r?\n/, 10);
@@ -138,7 +136,7 @@ export default function Game(){
                     console.log(error);
                 });
         } else if (location.state.lang === "es"){
-            axios.get('http://localhost:3000/Lang/es.txt')
+            axios.get(process.env.PUBLIC_URL + '/Lang/es.txt')
                 .then(response => {
                     const data = response.data;
                     const dataSplit = data.split(/\r?\n/, 10);
@@ -149,7 +147,7 @@ export default function Game(){
                     console.log(error);
                 });
         } else if (location.state.lang === "de"){
-            axios.get('http://localhost:3000/Lang/de.txt')
+            axios.get(process.env.PUBLIC_URL + '/Lang/de.txt')
                 .then(response => {
                     const data = response.data;
                     const dataSplit = data.split(/\r?\n/, 10);
@@ -183,6 +181,7 @@ export default function Game(){
         navigate("/", {replace: true});
     }
 
+
     return(
         <>
         <div id="countdownStart">{cd}</div>
@@ -198,14 +197,14 @@ export default function Game(){
             </form>
 
         </div>
-            <div id="endBckgrnd" className="hide">
-                <div className="endGame" id="endGame" >
-                    <h4>FINISH</h4>
-                    <img src="http://localhost:3000/alarm-clock.png" alt="timeBroken"/>
-                    <h5>Your score is : {score}</h5>
-                    <button onClick={restartGame}><IoHome size={30}/></button>
-                </div>
+        <div id="endBckgrnd" className="hide">
+            <div id="endGame">
+                <h4>FINISH</h4>
+                <img src={process.env.PUBLIC_URL + '/alarm-clock.png'} alt="timeBroken"/>
+                <h5>Your score is : {score}</h5>
+                <button onClick={restartGame}><IoHome size={30}/></button>
             </div>
+        </div>
 
         </>
     );
