@@ -75,7 +75,7 @@ export default function Game(){
 
         if(isFinished) {
             // document.getElementById("restart").classList.add("hide");
-            document.getElementById("endGame").classList.remove("hide");
+            document.getElementById("endBckgrnd").classList.remove("hide");
         }
     }
 
@@ -185,22 +185,22 @@ export default function Game(){
 
     return(
         <>
-        {/*<div id="countdownStart">{cd}</div>*/}
-        {/*<div id="game" className="hide">*/}
-        {/*    <div className="topStats">*/}
-        {/*        <span>Timer : {timer}</span>*/}
-        {/*        <span>Score : {score}</span>*/}
-        {/*    </div>*/}
+        <div id="countdownStart">{cd}</div>
+        <div id="game" className="hide">
+            <div className="topStats">
+                <span>Timer : {timer}</span>
+                <span>Score : {score}</span>
+            </div>
 
-        {/*    <div id="wordDisplay"></div>*/}
-        {/*    <form className="inputAnswer" onSubmit={submitAnswer}>*/}
-        {/*        <input type="text" id="input"  onChange={(e)=> setAnswer(e.target.value)} /><GiCrossMark id="crossMark" className="hidden" size={30}/>*/}
-        {/*    </form>*/}
+            <div id="wordDisplay"></div>
+            <form className="inputAnswer" onSubmit={submitAnswer}>
+                <input type="text" id="input"  onChange={(e)=> setAnswer(e.target.value)} /><GiCrossMark id="crossMark" className="hidden" size={30}/>
+            </form>
 
-        {/*</div>*/}
-            <div id="endBckgrnd" >
+        </div>
+            <div id="endBckgrnd" className="hide">
                 <div className="endGame" id="endGame" >
-                    <h4>GAME OVER</h4>
+                    <h4>FINISH</h4>
                     <img src="http://localhost:3000/alarm-clock.png" alt="timeBroken"/>
                     <h5>Your score is : {score}</h5>
                     <button onClick={restartGame}><IoHome size={30}/></button>

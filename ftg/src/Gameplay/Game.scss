@@ -86,27 +86,26 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  opacity: 0.8;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1;
 
-  h4{
-    position: relative;
-    top: 25px;
-    transform: translateY(-35px);
-    transition: transform 1.5s ease;
-  }
-
-  h5{
-    position: relative;
-    top: 25px;
-    transform: translateY(-35px);
-    transition: transform 1.5s ease;
-    transition-delay: 0.5s;
-  }
+  //h4{
+  //  position: relative;
+  //  top: 25px;
+  //  transform: translateY(-35px);
+  //  transition: transform 1.5s ease;
+  //}
+  //
+  //h5{
+  //  position: relative;
+  //  top: 25px;
+  //  transform: translateY(-35px);
+  //  transition: transform 1.5s ease;
+  //  transition-delay: 0.5s;
+  //}
 
   #endGame{
     position: absolute;
@@ -126,6 +125,7 @@
     align-items: center;
     border-radius: 20px;
     background-color: #2B0853;
+    box-shadow: 0 0 10px 0 white;
   }
 
   button{
