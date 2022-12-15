@@ -1,31 +1,31 @@
 import {Route, Router, Routes, useNavigate} from "react-router-dom";
 import './App.scss';
-import {VscDebugRestart} from "react-icons/vsc";
-import {Button} from "react-bootstrap";
 import Home from "./Gameplay/Home";
 import Game from "./Gameplay/Game";
 import Choose from "./Gameplay/Choose";
 import {HiSpeakerWave, HiSpeakerXMark} from "react-icons/hi2";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Sound from 'react-sound';
+import {IoHome} from "react-icons/io5";
+
 
 
 function App() {
   const navigate = useNavigate();
   const [isMuted, setIsMuted] = useState(false);
+  const [position, setPosition] = useState(0);
   let audioURL = process.env.PUBLIC_URL + '/Beat_One.mp3';
   localStorage.setItem("muted", JSON.stringify(isMuted));
 
-
   useEffect(() => {
       setIsMuted(JSON.parse(localStorage.getItem("muted")));
+      setPosition(soundCmp.current.position);
   },[]);
 
   const goToHomePage = () => {
     navigate("/", {replace: true});
   }
   const muteBtn = () => {
-      console.log(isMuted);
       if (!isMuted) {
           setIsMuted(true);
       }else{
@@ -34,6 +34,8 @@ function App() {
 
   }
 
+  const soundCmp = useRef();
+  // console.log(soundCmp.sound.position);
 
   return (
       <>
@@ -42,12 +44,12 @@ function App() {
             <Sound
                 url={audioURL}
                 playStatus={!isMuted ? Sound.status.PLAYING : Sound.status.STOPPED}
-                playFromPosition={300}
+                playFromPosition={position}
                 autoLoad={true}
                 loop={true}
+                ref={soundCmp}
+
             />
-            {/*<HiSpeakerWave size={35} color={"#ffffff"} className="speaker"/>*/}
-            {/*<audio id="audio" src="http://localhost:3000/Beat_One.mp3" controls></audio>*/}
         </div>
         <div className="logo">
           {/*<img src="/logo.png" alt="Logo" />*/}
@@ -59,10 +61,7 @@ function App() {
             <Route path='/start' element={<Game/>} />
           </Routes>
         </div>
-        <button className="restart" onClick={goToHomePage}><VscDebugRestart /> Restart</button>
-        {/*<div id="restart" className="restart">*/}
-        {/* */}
-        {/*</div>*/}
+        <button className="restart" onClick={goToHomePage}><IoHome /> Home</button>
       </>
   );
 }
