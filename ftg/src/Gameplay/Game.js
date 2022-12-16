@@ -58,6 +58,7 @@ export default function Game(){
     const displayGame = () => {
         document.getElementById("countdownStart").className = 'hide';
         document.getElementById("game").className = '';
+        document.getElementById("topStats").className = '';
         document.getElementById("input").focus();
         let i = timer-1;
         const interval = setInterval(()=>{
@@ -173,7 +174,7 @@ export default function Game(){
         wordDiv.style.padding = "10px";
         wordDiv.style.display = "inline-block";
         wordDiv.innerText = word;
-        document.getElementById("wordDisplay").appendChild(wordDiv);
+        document.getElementById("wordDisplay").querySelector("p").appendChild(wordDiv);
 
     }
 
@@ -185,13 +186,12 @@ export default function Game(){
     return(
         <>
         <div id="countdownStart">{cd}</div>
+        <div id="topStats" className="hide">
+            <span>Timer : {timer}</span>
+            <span>Score : {score}</span>
+        </div>
         <div id="game" className="hide">
-            <div className="topStats">
-                <span>Timer : {timer}</span>
-                <span>Score : {score}</span>
-            </div>
-
-            <div id="wordDisplay"></div>
+            <div id="wordDisplay"><p></p></div>
             <form className="inputAnswer" onSubmit={submitAnswer}>
                 <input type="text" id="input"  onChange={(e)=> setAnswer(e.target.value)} /><GiCrossMark id="crossMark" className="hidden" size={30}/>
             </form>
@@ -199,8 +199,8 @@ export default function Game(){
         </div>
         <div id="endBckgrnd" className="hide">
             <div id="endGame">
-                <h4>FINISH</h4>
                 <img src={process.env.PUBLIC_URL + '/alarm-clock.png'} alt="timeBroken"/>
+                <h4>FINISH</h4>
                 <h5>Your score is : {score}</h5>
                 <button onClick={restartGame}><IoHome size={30}/></button>
             </div>

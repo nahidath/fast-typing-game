@@ -15,23 +15,13 @@
   border: none;
   color: white;
   font-family: 'Bubblegum Sans', cursive;
-  font-size: 20px;
+  font-size: 1.5em;
   display: flex;
   gap: 5px;
 
 }
 
-.logo{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  z-index: 1;
 
-  //img{
-  //  width: 250px;
-  //  height:250px;
-  //}
-}
 
 .speaker{
     position: fixed;
@@ -41,10 +31,3 @@
     z-index: 1;
 }
 
-#audio{
-    position: absolute;
-    top: 15%;
-    right: 20%;
-    cursor: pointer;
-    z-index: 1;
-}

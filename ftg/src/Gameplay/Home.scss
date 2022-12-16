@@ -42,5 +42,19 @@
 }
 
 .gameTitle{
-  font-size : 1.5em;
+  font-size : 2em;
+}
+
+.logo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  font-family: 'Bubblegum Sans', cursive;
+  font-size: 3em;
+  font-style: italic;
+  font-weight: bold;
+  margin-top: 2.5em;
+
+
 }

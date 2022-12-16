@@ -10,15 +10,21 @@ export default function Home() {
     }
 
     return(
-        <div className="home">
-            <div className="gameTitle">
-                Fast Word<br/>How fast are you ?
+        <>
+            <div className="logo">
+                Fast<br/>&emsp;&emsp;Word
             </div>
-            <div className="iconBackground">
-                {/*<BsFillPlayCircleFill color={"#eac300"} size={120} onClick={goToStart} className="playGame"/>*/}
+            <div className="home">
+                <div className="gameTitle">
+                    How fast are you ?
+                </div>
+                <div className="iconBackground">
+                    {/*<BsFillPlayCircleFill color={"#eac300"} size={120} onClick={goToStart} className="playGame"/>*/}
+                </div>
+                <BsFillPlayCircleFill color={"#2B0853"} size={120} onClick={goToStart}className="playGame"/>
+                <h4 className="start-msg">Let's start !!</h4>
             </div>
-            <BsFillPlayCircleFill color={"#2B0853"} size={120} onClick={goToStart}className="playGame"/>
-            <h4 className="start-msg">Let's start !!</h4>
-        </div>
+        </>
+
     )
 }

@@ -16,16 +16,22 @@ export default function Choose(){
     const [selected, setSelected] = useState(null);
 
     return(
-        <div className="language-select">
-            <label htmlFor="language">Choose a language :</label>
-            <select name="languages" id="languages" onChange={(e) => setSelected(e.target.value)}>
-                <option value="none" selected disabled hidden>Select an Option</option>
-                <option  value="fr">French</option>
-                <option value="en">English</option>
-                <option value="de">Deutsch</option>
-                <option value="es">Spanish</option>
-            </select>
-            <Button className="btn-choose" onClick={() => handleLangClick(selected)}><FaCheck id="check-icon"/></Button>
-        </div>
+        <>
+            <div className="logo">
+                Fast<br/>&emsp;&emsp;Word
+            </div>
+            <div className="language-select">
+                <label htmlFor="language">Choose a language :</label>
+                <select name="languages" id="languages" onChange={(e) => setSelected(e.target.value)}>
+                    <option value="none" selected disabled hidden>Select an Option</option>
+                    <option  value="fr">French</option>
+                    <option value="en">English</option>
+                    <option value="de">Deutsch</option>
+                    <option value="es">Spanish</option>
+                </select>
+                <Button className="btn-choose" onClick={() => handleLangClick(selected)}><FaCheck id="check-icon"/></Button>
+            </div>
+        </>
+
     )
 }

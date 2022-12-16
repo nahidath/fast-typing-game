@@ -30,11 +30,17 @@
   display: none !important;
 }
 
-.topStats{
+#topStats{
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 5em;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+
 
   span{
     font-size : 25px;
@@ -66,11 +72,21 @@
 }
 
 #wordDisplay{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   position: relative;
-  top: 30px;
+  //top: 20px;
   text-align: left;
-  font-size: 1.5em;
+  font-size: 1.3em;
   padding: 5px;
+  width: 100%;
+  height: 100%;
+
+  p{
+    line-height: 0.8;
+  }
+
 }
 
 .hidden{
@@ -106,6 +122,9 @@
   //  transition: transform 1.5s ease;
   //  transition-delay: 0.5s;
   //}
+  h5{
+    margin-top: 2px;
+  }
 
   #endGame{
     position: absolute;
