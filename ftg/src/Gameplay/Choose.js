@@ -24,10 +24,10 @@ export default function Choose(){
                 <label htmlFor="language">Choose a language :</label>
                 <select name="languages" id="languages" onChange={(e) => setSelected(e.target.value)}>
                     <option value="none" selected disabled hidden>Select an Option</option>
-                    <option  value="fr">French</option>
-                    <option value="en">English</option>
-                    <option value="de">Deutsch</option>
-                    <option value="es">Spanish</option>
+                    <option  value="fr"><img src={process.env.PUBLIC_URL + '/Flags/france.png'}/> French</option>
+                    <option value="en"><img src={process.env.PUBLIC_URL + '/Flags/united-kingdom.png'}/> English</option>
+                    <option value="de"><img src={process.env.PUBLIC_URL + '/Flags/germany.png'}/> Deutsch</option>
+                    <option value="es"><img src={process.env.PUBLIC_URL + '/Flags/spain.png'}/> Spanish</option>
                 </select>
                 <Button className="btn-choose" onClick={() => handleLangClick(selected)}><FaCheck id="check-icon"/></Button>
             </div>

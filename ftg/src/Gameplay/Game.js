@@ -41,9 +41,14 @@ export default function Game(){
             setIsRunning(true);
         }
         if(started && timer > 0){
-            getRandomWord();
-            nextWord();
+          setInterval(()=>{
+                getRandomWord();
+                nextWord();
+            }, 800);
+
         }
+
+
 
 
 
@@ -118,7 +123,7 @@ export default function Game(){
             axios.get(process.env.PUBLIC_URL + '/Lang/fr.txt')
                 .then(response => {
                     const data = response.data;
-                    const dataSplit = data.split(/\r?\n/, 10);
+                    const dataSplit = data.split(/\r?\n/);
                     const dataShuffle = dataSplit.sort(() => Math.random() - 0.5);
                     setArrayWords(dataShuffle);
                 })
@@ -129,7 +134,7 @@ export default function Game(){
             axios.get(process.env.PUBLIC_URL + '/Lang/en.txt')
                 .then(response => {
                     const data = response.data;
-                    const dataSplit = data.split(/\r?\n/, 10);
+                    const dataSplit = data.split(/\r?\n/);
                     const dataShuffle = dataSplit.sort(() => Math.random() - 0.5);
                     setArrayWords(dataShuffle);
                 })
@@ -140,7 +145,7 @@ export default function Game(){
             axios.get(process.env.PUBLIC_URL + '/Lang/es.txt')
                 .then(response => {
                     const data = response.data;
-                    const dataSplit = data.split(/\r?\n/, 10);
+                    const dataSplit = data.split(/\r?\n/);
                     const dataShuffle = dataSplit.sort(() => Math.random() - 0.5);
                     setArrayWords(dataShuffle);
                 })
@@ -151,7 +156,7 @@ export default function Game(){
             axios.get(process.env.PUBLIC_URL + '/Lang/de.txt')
                 .then(response => {
                     const data = response.data;
-                    const dataSplit = data.split(/\r?\n/, 10);
+                    const dataSplit = data.split(/\r?\n/);
                     const dataShuffle = dataSplit.sort(() => Math.random() - 0.5);
                     setArrayWords(dataShuffle);
                 })
