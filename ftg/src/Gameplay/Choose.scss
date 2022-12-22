@@ -6,9 +6,39 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  margin-top: 2em;
 
   label{
     font-size: 2.5em;
+  }
+
+  .flag-container{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap : 50px 50px;
+  }
+  .card-flags{
+    cursor: pointer;
+    transition: transform .3s ease-in; /* Animation */
+  }
+
+  .card-img-top{
+    width: 90px;
+    height: 90px;
+  }
+
+  .flag-name{
+    opacity: 0;
+    font-size: 1em;
+  }
+
+  .card-flags:hover{
+    transform: scale(1.2);
+  }
+  .card-flags:hover + .flag-name{
+    opacity : 1;
+    transition: 0.3s ease-in;
   }
 
 }
