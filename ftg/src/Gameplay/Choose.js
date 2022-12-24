@@ -1,8 +1,7 @@
 import "./Choose.scss";
 import {useNavigate} from "react-router-dom";
-import {Button, Card, Col, Row} from "react-bootstrap";
-import {FaCheck} from "react-icons/fa";
-import {useState} from "react";
+import {Card, Col, Row} from "react-bootstrap";
+
 
 
 export default function Choose(){
@@ -11,21 +10,24 @@ export default function Choose(){
 
     const handleLangClick = (flag) => {
         let lang;
-        const myArray = flag.split(".")[0];
-        if(myArray === "france"){
+        if(flag === "french"){
             lang = "fr";
-        }else if(myArray === "united-kingdom"){
+        }else if(flag === "english"){
             lang = "en";
-        }else if(myArray === "germany"){
+        }else if(flag === "deutsch"){
             lang = "de";
-        }else if(myArray === "spain"){
+        }else if(flag === "spanish"){
             lang = "es";
         }
         navigate("/start/", {state: {lang: lang}, replace: true});
     }
 
-    const [selected, setSelected] = useState(null);
-    let flags = ['france.png', 'germany.png', 'spain.png', 'united-kingdom.png'];
+    let flags = [
+        {name : "french", flagImg : 'france.png'},
+        {name : "deutsch", flagImg : 'germany.png'},
+        {name : "spanish", flagImg : 'spain.png'},
+        {name : "english", flagImg : 'united-kingdom.png'}
+    ];
 
     return(
         <>
@@ -34,28 +36,18 @@ export default function Choose(){
             </div>
             <div className="language-select">
                 <label htmlFor="language">Choose a language :</label>
-                {/*<select name="languages" id="languages" onChange={(e) => setSelected(e.target.value)}>*/}
-                {/*    <option value="none" selected disabled hidden>Select an Option</option>*/}
-                {/*    <option  value="fr"><img src={process.env.PUBLIC_URL + '/Flags/france.png'}/> French</option>*/}
-                {/*    <option value="en"><img src={process.env.PUBLIC_URL + '/Flags/united-kingdom.png'}/> English</option>*/}
-                {/*    <option value="de"><img src={process.env.PUBLIC_URL + '/Flags/germany.png'}/> Deutsch</option>*/}
-                {/*    <option value="es"><img src={process.env.PUBLIC_URL + '/Flags/spain.png'}/> Spanish</option>*/}
-                {/*</select>*/}
-                {/*<Button className="btn-choose" onClick={() => handleLangClick(selected)}><FaCheck id="check-icon"/></Button>*/}
-                {/*<span>Choose a Language</span>*/}
-
                 <div className="flag-container">
                     {flags.map((flag, index) => (
 
                         <Row key={index} xs={1} md={2} className="g-4">
                             <Col>
-                                <Card key={index}
-                                        onClick={() => handleLangClick(flag)}
+                                <Card key={flag.name}
+                                        onClick={() => handleLangClick(flag.name)}
                                         className="card-flags"
                                 >
-                                    <Card.Img variant="top" src={process.env.PUBLIC_URL + '/Flags/' + flag} />
+                                    <Card.Img variant="top" src={process.env.PUBLIC_URL + '/Flags/' + flag.flagImg} />
                                 </Card>
-                                <h6 className="flag-name">{flag.split(".")[0]}</h6>
+                                <h6 className="flag-name">{flag.name}</h6>
                             </Col>
                         </Row>
                     ))}

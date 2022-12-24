@@ -40,13 +40,14 @@ export default function Game(){
             },1000);
             setIsRunning(true);
         }
-        if(started && timer > 0){
-          setInterval(()=>{
-                getRandomWord();
-                nextWord();
-            }, 800);
+        // if(started && timer > 0){
+        //     wordDisplayScroll();
+        //     // getRandomWord();
+        //     // nextWord();
+        //
+        // }
 
-        }
+
 
 
 
@@ -71,6 +72,7 @@ export default function Game(){
                 setTimer(i);
                 i--;
                 setStarted(true);
+                wordDisplayScroll();
 
             }else{
                 clearInterval(interval);
@@ -92,7 +94,7 @@ export default function Game(){
         }else{
             let allWords = document.getElementById("wordDisplay").querySelectorAll("span");
             for(let i = 0; i < allWords.length; i++){
-                if(allWords[i].innerHTML === answer){
+                if(allWords[i].innerHTML.toLowerCase() === answer.toLowerCase()){
                     isCorrect = true;
                     key = i;
                     break;
@@ -125,7 +127,14 @@ export default function Game(){
                     const data = response.data;
                     const dataSplit = data.split(/\r?\n/);
                     const dataShuffle = dataSplit.sort(() => Math.random() - 0.5);
-                    setArrayWords(dataShuffle);
+                    const dataSlice = dataShuffle.slice(0, 100);
+                    dataSlice.map((word) => {
+                        const wordDiv = document.createElement('span');
+                        wordDiv.style.padding = "10px";
+                        wordDiv.innerText = word;
+                        document.getElementById("wordDisplay").querySelector("p").appendChild(wordDiv);
+                    });
+                    // setArrayWords(dataShuffle);
                 })
                 .catch(error => {
                     console.log(error);
@@ -136,7 +145,14 @@ export default function Game(){
                     const data = response.data;
                     const dataSplit = data.split(/\r?\n/);
                     const dataShuffle = dataSplit.sort(() => Math.random() - 0.5);
-                    setArrayWords(dataShuffle);
+                    const dataSlice = dataShuffle.slice(0, 100);
+                    dataSlice.map((word) => {
+                        const wordDiv = document.createElement('span');
+                        wordDiv.style.padding = "10px";
+                        wordDiv.innerText = word;
+                        document.getElementById("wordDisplay").querySelector("p").appendChild(wordDiv);
+                    });
+                    // setArrayWords(dataShuffle);
                 })
                 .catch(error => {
                     console.log(error);
@@ -147,7 +163,14 @@ export default function Game(){
                     const data = response.data;
                     const dataSplit = data.split(/\r?\n/);
                     const dataShuffle = dataSplit.sort(() => Math.random() - 0.5);
-                    setArrayWords(dataShuffle);
+                    const dataSlice = dataShuffle.slice(0, 100);
+                    dataSlice.map((word) => {
+                        const wordDiv = document.createElement('span');
+                        wordDiv.style.padding = "10px";
+                        wordDiv.innerText = word;
+                        document.getElementById("wordDisplay").querySelector("p").appendChild(wordDiv);
+                    });
+                    // setArrayWords(dataShuffle);
                 })
                 .catch(error => {
                     console.log(error);
@@ -158,28 +181,43 @@ export default function Game(){
                     const data = response.data;
                     const dataSplit = data.split(/\r?\n/);
                     const dataShuffle = dataSplit.sort(() => Math.random() - 0.5);
-                    setArrayWords(dataShuffle);
+                    const dataSlice = dataShuffle.slice(0, 100);
+                    dataSlice.map((word) => {
+                        const wordDiv = document.createElement('span');
+                        wordDiv.style.padding = "10px";
+                        wordDiv.innerText = word;
+                        document.getElementById("wordDisplay").querySelector("p").appendChild(wordDiv);
+                    });
+
+                    // setArrayWords(dataShuffle);
                 })
                 .catch(error => {
                     console.log(error);
                 });
+
         }
 
     }
 
 
-    const getRandomWord = () => {
-        const rndWord = Math.floor(Math.random() * arrayWords.length);
-        return arrayWords[rndWord];
-    }
+    // const getRandomWord = () => {
+    //     const rndWord = Math.floor(Math.random() * arrayWords.length);
+    //     return arrayWords[rndWord];
+    // }
+    //
+    // const nextWord = () => {
+    //     const word = getRandomWord();
+    //     const wordDiv = document.createElement('span');
+    //     wordDiv.style.padding = "10px";
+    //     wordDiv.style.display = "inline-block";
+    //     wordDiv.innerText = word;
+    //     document.getElementById("wordDisplay").querySelector("p").appendChild(wordDiv);
+    //
+    // }
 
-    const nextWord = () => {
-        const word = getRandomWord();
-        const wordDiv = document.createElement('span');
-        wordDiv.style.padding = "10px";
-        wordDiv.style.display = "inline-block";
-        wordDiv.innerText = word;
-        document.getElementById("wordDisplay").querySelector("p").appendChild(wordDiv);
+    const wordDisplayScroll = () => {
+        const objDiv = document.getElementById("wordDisplay");
+        objDiv.scrollTop = objDiv.scrollTop + 25;
 
     }
 
@@ -196,7 +234,11 @@ export default function Game(){
             <span>Score : {score}</span>
         </div>
         <div id="game" className="hide">
-            <div id="wordDisplay"><p></p></div>
+            <div id="wordDisplay">
+                <p>
+                    {/*{arrayWords.map((word) => ( <span key={word}>{word}</span>))}*/}
+                </p>
+            </div>
             <form className="inputAnswer" onSubmit={submitAnswer}>
                 <input type="text" id="input"  onChange={(e)=> setAnswer(e.target.value)} /><GiCrossMark id="crossMark" className="hidden" size={30}/>
             </form>
